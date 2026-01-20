@@ -1,9 +1,10 @@
 const { verifyToken } = require('../utils/jwt.utils');
+const { sendError } = require('../utils/response.utils');
 
 function authMiddleware(req, res, next) {
 	const header = req.headers['authorization'] || req.headers['Authorization'];
 	if (!header || !String(header).startsWith('Bearer ')) {
-		return res.status(401).json({ error: 'Unauthorized: Missing Bearer token' });
+		return sendError(res, 'Unauthorized: Missing Bearer token', 401);
 	}
 	const token = String(header).substring('Bearer '.length);
 	try {
@@ -11,7 +12,7 @@ function authMiddleware(req, res, next) {
 		req.user = payload;
 		next();
 	} catch (err) {
-		return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+		return sendError(res, 'Unauthorized: Invalid token', 401);
 	}
 }
 

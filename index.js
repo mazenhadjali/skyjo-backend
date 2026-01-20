@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
 // Mount routes
 try {
     app.use("/auth", require("./src/routes/auth.routes"));
+    app.use("/user", require("./src/routes/user.routes"));
 } catch (e) {
     // Route may be implemented later; avoid crash if missing
 }
