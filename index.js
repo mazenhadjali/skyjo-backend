@@ -16,10 +16,6 @@ mongoose
     });
 
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
-
 // Mount routes
 try {
     app.use("/auth", require("./src/routes/auth.routes"));
