@@ -13,7 +13,7 @@ function getSecret() {
 // params:
 // - payload: object to embed in the token
 // - options: { expiresIn?: string|number, issuer?: string, subject?: string, audience?: string }
-function signToken(payload, options = {}) {
+function signToken(payload, options = { expiresIn: '12h' }) {
     const secret = getSecret();
     const defaultOptions = { algorithm: 'HS256' };
     return jwt.sign(payload, secret, { ...defaultOptions, ...options });
