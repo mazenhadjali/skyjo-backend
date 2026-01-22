@@ -1,11 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const { SERVER_PORT, MONGO_URI } = require("./src/config/server.config");
 const app = express();
 
 // Parse JSON bodies
 app.use(express.json());
 
+// Allow all CORS
+// Enable CORS globally (handles preflight automatically)
+app.use(cors());
 // Connect to MongoDB
 mongoose
     .connect(MONGO_URI, { autoIndex: true })
@@ -18,8 +22,8 @@ mongoose
 
 // Mount routes
 try {
-    app.use("/auth", require("./src/routes/auth.routes"));
-    app.use("/user", require("./src/routes/user.routes"));
+    app.use("/api/auth", require("./src/routes/auth.routes"));
+    app.use("/api/user", require("./src/routes/user.routes"));
 } catch (e) {
     // Route may be implemented later; avoid crash if missing
 }
